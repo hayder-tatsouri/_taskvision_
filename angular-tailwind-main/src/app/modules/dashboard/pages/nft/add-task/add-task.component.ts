@@ -3,6 +3,9 @@ import { Task } from 'src/app/modules/dashboard/models/task';
 import { NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TaskServicesService } from 'src/app/core/services/task-services.service';
+import { ActivatedRoute } from '@angular/router';
+
 
 
 @Component({
@@ -12,29 +15,34 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './add-task.component.css'
 })
 export class AddTaskComponent {
-  task: Partial<Task> = {
-    title: '',
-   
-    description: '',
-    startDate: '',
-    endDate: '',
-    status: 'En attente',
-    projectId: 0
-  };
 
-  constructor() {}
-
-  addTask(form: NgForm) {
-    if (form.valid) {
-      // For now, just log the task to console
-      console.log('Nouvelle tâche ajoutée :', this.task);
-
-      // Reset form after adding task
-      form.resetForm({
-        status: 'En attente'  // default value for status after reset
-      });
-    }
+  projectId!: number;
+  constructor(private taskService:TaskServicesService , private route: ActivatedRoute) {}
+  ngOnInit() {
+    // Récupérer projectId depuis l’URL
+    this.projectId = Number(this.route.snapshot.paramMap.get('projectId'));
   }
+  addTask(form: NgForm) {
+  console.log("Formulaire complet :", form);
+  console.log("Valeurs :", form.value);
+
+  if (form.valid) {
+    const task: Task = {
+      ...form.value,
+      projectId: this.projectId
+    };
+    this.taskService.addTask(task).subscribe({
+      next: (newTask) => {
+        console.log('✅ Tâche ajoutée avec succès :', newTask);
+        form.resetForm({ status: 'En attente' });
+      },
+      error: (err) => {
+        console.error('❌ Erreur lors de l’ajout de la tâche', err);
+      }
+    });
+  }
+}
+
 }
 
 

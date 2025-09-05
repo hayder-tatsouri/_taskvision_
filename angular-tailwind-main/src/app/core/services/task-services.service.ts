@@ -15,5 +15,10 @@ export class TaskServicesService {
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<Task[]>(`${this.apiUrl}/project/${projectId}/tasks`, { headers });
   }
+   addTask(task: Task) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<Task>(this.apiUrl +'/addTask', task, { headers });
+  }
   
 }
