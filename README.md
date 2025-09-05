@@ -20,6 +20,7 @@ Installation et Configuration
      npm install
      
    .Installer les dépendances du frontend
+   
       cd ../angular-tailwind-main/
       npm install 
       
