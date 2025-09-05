@@ -1,0 +1,84 @@
+<div class="max-w-lg mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
+  <h2 class="text-2xl font-bold mb-6 text-gray-800">Ajouter une Tâche</h2>
+
+  <form #taskForm="ngForm" (ngSubmit)="addTask(taskForm.value)" class="space-y-4">
+
+    <!-- Titre -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="title">Titre</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        ngModel
+        placeholder="Ex: Développement API"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+        required
+      />
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        ngModel
+        placeholder="Implémenter les routes CRUD pour la gestion des utilisateurs"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+        rows="4"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Date de début -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="startDate">Date de début</label>
+      <input
+        type="date"
+        id="startDate"
+        name="startDate"
+        ngModel
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+        required
+      />
+    </div>
+
+    <!-- Date de fin -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="endDate">Date de fin</label>
+      <input
+        type="date"
+        id="endDate"
+        name="endDate"
+        ngModel
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+        required
+      />
+    </div>
+
+    <!-- Statut -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="status">Statut</label>
+      <select
+        id="status"
+        name="status"
+        ngModel
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+        required
+      >
+        <option value="pending">En attente</option>
+        <option value="in_progress">En cours</option>
+        <option value="completed">Terminé</option>
+      </select>
+    </div>
+
+    <!-- Bouton Ajouter -->
+    <button
+      type="submit"
+      class="w-full bg-green-600 text-white py-2.5 rounded-md font-semibold shadow hover:bg-green-700 transition"
+    >
+      + Ajouter Tâche
+    </button>
+  </form>
+</div>

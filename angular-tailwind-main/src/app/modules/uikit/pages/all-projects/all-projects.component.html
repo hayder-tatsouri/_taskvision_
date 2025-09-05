@@ -1,0 +1,45 @@
+<div class="overflow-x-auto rounded-xl shadow-lg bg-white p-6">
+  <table class="w-full table-auto border-collapse text-sm">
+    <!-- Table head -->
+    <thead>
+      <tr class="bg-gray-100 text-gray-700">
+        <th class="px-6 py-3 text-left font-semibold">Title</th>
+        <th class="px-6 py-3 text-left font-semibold">Description</th>
+        <th class="px-6 py-3 text-left font-semibold">Client</th>
+        <th class="px-6 py-3 text-left font-semibold">Project Manager</th>
+        <th class="px-6 py-3 text-left font-semibold">Status</th>
+      </tr>
+    </thead>
+
+    <!-- Table body -->
+     @for (project of projects; track $index) {
+        <tbody class="divide-y divide-gray-200">
+        <tr>
+            <td class="px-6 py-4 font-medium text-gray-900">{{project.title}}</td>
+            <td class="px-6 py-4 text-gray-600">{{project.description}}</td>
+            <td class="px-6 py-4 text-gray-600">{{project.clientId}}</td>
+            <td class="px-6 py-4 text-gray-600">{{project.managerId}}</td>
+            <td class="px-6 py-4">
+            <span
+  class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+  [ngClass]="{
+    'bg-yellow-100 text-yellow-700': project.status === 'En cours',
+    'bg-green-100 text-green-700': project.status === 'Terminé',
+    'bg-red-100 text-red-700': project.status === 'En attente'
+  }"
+>
+  {{ project.status }}
+</span>
+
+            </td>
+        </tr>
+    </tbody>
+    } @empty {
+      <tbody>
+        <tr>
+          <td class="py-4 text-center text-sm text-gray-500" colspan="5">No projects found</td>
+        </tr>
+      </tbody>
+    }
+  </table>
+</div>

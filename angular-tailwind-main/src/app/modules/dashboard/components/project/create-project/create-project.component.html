@@ -1,0 +1,99 @@
+<div class="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8">
+  <!-- Header -->
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Ajouter un projet</h2>
+
+  <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm.value)" class="space-y-6">
+
+    <!-- Title -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Titre</label>
+      <input 
+        type="text" 
+        name="title" 
+        ngModel
+        class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        placeholder="AI Research Project" required>
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Description</label>
+      <textarea 
+        name="description" 
+        ngModel
+        class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        rows="3" placeholder="Ce projet est basé sur l'IA..." required>
+      </textarea>
+    </div>
+
+    <!-- Dates -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Date de début</label>
+        <input 
+          type="date" 
+          name="startDate" 
+          ngModel
+          class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Date de fin</label>
+        <input 
+          type="date" 
+          name="endDate" 
+          ngModel
+          class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Deadline</label>
+        <input 
+          type="date" 
+          name="deadline" 
+          ngModel
+          class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Statut</label>
+      <select 
+        name="status" 
+        ngModel
+        class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 bg-white shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+        <option value="En cours">En cours</option>
+        <option value="Terminé">Terminé</option>
+        <option value="En attente">En attente</option>
+      </select>
+    </div>
+
+    <!-- Client & Manager -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Client </label>
+        <input 
+          type="number" 
+          name="clientId" 
+          ngModel
+          class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Manager </label>
+        <input 
+          type="number" 
+          name="managerId" 
+          ngModel
+          class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <div class="pt-4">
+      <button 
+        type="submit" 
+        class="w-full rounded-lg bg-indigo-600 px-6 py-3 text-white font-semibold shadow-lg transition-all duration-300 hover:bg-indigo-700 hover:shadow-xl">
+        Ajouter le projet
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,47 @@
+<div class="p-6 bg-gray-100 min-h-screen">
+  <div class="max-w-3xl mx-auto">
+
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Commentaires de la tâche</h2>
+
+    <!-- Ajouter un commentaire -->
+    <div class="mb-6 bg-white p-4 rounded-lg shadow">
+      <textarea [(ngModel)]="newComment" placeholder="Écrire un commentaire..."
+                class="w-full border border-gray-300 rounded-md p-3 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+      <button (click)="addComment()"
+              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+        Ajouter
+      </button>
+    </div>
+
+    <!-- Liste des commentaires -->
+    <div *ngFor="let comment of comments" class="mb-4">
+      <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition">
+        <div class="flex justify-between items-center mb-2">
+          <span class="font-semibold text-gray-700">{{ comment.userId }}</span>
+          <span class="text-xs text-gray-500">{{ comment.commentDate | date:'short' }}</span>
+        </div>
+
+        <!-- Affichage normal -->
+        <p *ngIf="editCommentId !== comment.id" class="text-gray-800">{{ comment.content }}</p>
+
+        <!-- Édition -->
+        <div *ngIf="editCommentId === comment.id">
+          <textarea [(ngModel)]="editContent"
+                    class="w-full border border-gray-300 rounded-md p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-green-400"></textarea>
+          <div class="flex space-x-2">
+            <button (click)="saveEdit(comment)" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition">
+              Enregistrer
+            </button>
+            <button (click)="cancelEdit()" class="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500 transition">
+              Annuler
+            </button>
+          </div>
+        </div>
+
+        <!-- Bouton modifier -->
+       
+      </div>
+    </div>
+
+  </div>
+</div>

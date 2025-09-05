@@ -1,0 +1,35 @@
+<div *ngIf="tasks.length > 0; else noTasks">
+  <div class="w-full overflow-x-auto bg-white p-6">
+    <table class="min-w-full table-fixed border-collapse bg-white">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 text-left w-2/12">Title</th>
+          <th class="px-4 py-2 text-left w-4/12">Description</th>
+          <th class="px-4 py-2 text-left w-2/12">Start Day</th>
+          <th class="px-4 py-2 text-left w-2/12">End Date</th>
+          <th class="px-4 py-2 text-left w-2/12">Status</th>
+          <th class="px-4 py-2 text-left w-1/12">Commentaires</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let task of tasks"
+          [auction]="task"
+          nft-auctions-table-item
+          class="border-b border-dashed border-border hover:bg-card">
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #noTasks>
+  <div class="flex flex-col items-center justify-center py-16 bg-gray-50 rounded-lg border border-gray-200">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h6v6m2 0H7a2 2 0 01-2-2V7a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2z" />
+    </svg>
+    <p class="text-gray-500 text-lg font-medium">Aucune tâche disponible pour ce projet.</p>
+    <p class="text-gray-400 text-sm mt-1">Ajoutez des tâches pour commencer à suivre l’avancement.</p>
+  </div>
+</ng-template>
+

@@ -1,0 +1,58 @@
+<app-project-header></app-project-header>
+<div class="w-full rounded-lg bg-white shadow p-6">
+  <!-- Statistiques -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <!-- Projets en cours -->
+    <div class="flex items-center gap-4 p-5 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl shadow-md">
+      <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-200 text-blue-700">
+        <i class="fas fa-briefcase text-xl"></i>
+      </div>
+      <div>
+        <h4 class="text-sm font-medium text-gray-600">Projets en cours</h4>
+        <p class="text-2xl font-bold text-blue-800">{{ nbProjectsEnCours }}</p>
+      </div>
+    </div>
+
+    <!-- Tâches en cours -->
+    <div class="flex items-center gap-4 p-5 bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl shadow-md">
+      <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-200 text-purple-700">
+        <i class="fas fa-tasks text-xl"></i>
+      </div>
+      <div>
+        <h4 class="text-sm font-medium text-gray-600">Tâches en cours</h4>
+        <p class="text-2xl font-bold text-purple-800">{{ nbTasksEnCours }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tableau des projets -->
+  <h3 class="text-lg font-bold mb-4">Projets</h3>
+  <table class="min-w-full table-fixed border-collapse">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 text-left w-3/4">Titre</th>
+        <th class="px-4 py-2 text-left w-1/4">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects" class="border-b hover:bg-gray-50">
+        <td class="px-4 py-2">
+          <span class="font-medium text-gray-800">{{ project.title }}</span>
+        </td>
+        <td class="px-4 py-2">
+          <span
+            class="px-3 py-1 rounded-full text-xs font-semibold"
+            [ngClass]="{
+              'bg-green-100 text-green-700': project.status === 'Terminé',
+              'bg-yellow-100 text-yellow-700': project.status === 'En cours',
+              'bg-red-100 text-red-700': project.status === 'En attente'
+            }"
+          >
+            {{ project.status }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<div project-chart-card class="md:col-span-2 xl:col-span-1"></div>
+</div>

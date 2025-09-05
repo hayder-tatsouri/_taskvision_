@@ -1,0 +1,87 @@
+<!-- project-detail.component.html -->
+<div class="p-6">
+  <div class="bg-white shadow-2xl rounded-2xl p-12 max-w-5xl mx-auto border border-gray-100">
+    
+    <!-- Header -->
+    <div class="mb-10 border-b pb-6">
+      <h1 class="text-4xl font-extrabold text-gray-900 flex items-center gap-3">
+        
+        {{ project.title }}
+      </h1>
+      <p class="text-gray-600 mt-3 text-lg leading-relaxed">
+        {{ project.description }}
+      </p>
+    </div>
+
+    <!-- Info grid -->
+    <div class="grid md:grid-cols-2 gap-y-12 gap-x-10 text-gray-700">
+      
+      <!-- Dates -->
+      <div class="space-y-3">
+        <span class="font-semibold text-gray-800 flex items-center gap-2 text-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               fill="none" viewBox="0 0 24 24" 
+               stroke="currentColor" class="h-6 w-6 text-indigo-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          Dates
+        </span>
+        <p><span class="text-sm text-gray-500">Start:</span> {{ project.startDate }}</p>
+        <p><span class="text-sm text-gray-500">End:</span> {{ project.endDate }}</p>
+      </div>
+
+      <!-- Status -->
+      <div class="space-y-3">
+        <span class="font-semibold text-gray-800 flex items-center gap-2 text-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               fill="none" viewBox="0 0 24 24" 
+               stroke="currentColor" class="h-6 w-6 text-green-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Status
+        </span>
+        <span
+          class="px-5 py-2 inline-flex items-center rounded-full text-sm font-medium shadow-md"
+          [ngClass]="{
+            'bg-green-100 text-green-700': project.status === 'Terminé',
+            'bg-yellow-100 text-yellow-700': project.status === 'En cours',
+            'bg-red-100 text-red-700': project.status === 'En attente'
+          }"
+        >
+          {{ project.status }}
+        </span>
+      </div>
+
+      <!-- Client -->
+      <div class="space-y-3">
+        <span class="font-semibold text-gray-800 flex items-center gap-2 text-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               fill="none" viewBox="0 0 24 24" 
+               stroke="currentColor" class="h-6 w-6 text-blue-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M5.121 17.804A9 9 0 1118.879 6.196M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          Client
+        </span>
+        <p class="text-gray-500 text-base">{{ project.clientName }}</p>
+      </div>
+
+      <!-- Project Manager -->
+      <div class="space-y-3">
+        <span class="font-semibold text-gray-800 flex items-center gap-2 text-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               fill="none" viewBox="0 0 24 24" 
+               stroke="currentColor" class="h-6 w-6 text-purple-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M5.121 17.804A9 9 0 1118.879 6.196M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          Project Manager
+        </span>
+        <p class="text-gray-500 text-base">{{ project.projectManager }}</p>
+      </div>
+    </div>
+
+    <!-- Extra Section: Notes -->
+    

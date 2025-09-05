@@ -1,0 +1,62 @@
+<td class="py-2 pr-2">
+  <div class="flex items-center">
+    <div class="flex flex-col justify-items-start">
+      <a href="#" class="text-foreground mb-1 text-sm font-semibold break-words whitespace-normal">
+        {{ auction.title }}
+      </a>
+    </div>
+  </div>
+</td>
+
+<td class="py-2 pl-2 text-left w-3/12">
+  <span class="text-muted-foreground text-sm font-semibold break-words whitespace-normal">
+    {{ auction.description }}
+  </span>
+</td>
+
+<td class="py-2 pl-2 text-left w-2/12">
+  <span class="text-blue-700 bg-blue-50 px-2 py-1 rounded font-semibold text-xs shadow border border-blue-100">
+    {{ auction.startDate | date:'dd MMM yyyy' }}
+  </span>
+</td>
+
+<td class="py-2 pl-2 text-left w-2/12">
+  <span class="text-green-700 bg-green-50 px-2 py-1 rounded font-semibold text-xs shadow border border-green-100">
+    {{ auction.endDate | date:'dd MMM yyyy' }}
+  </span>
+</td>
+
+<td class="py-2 pl-2 text-left w-2/12">
+  <span
+    class="inline-flex items-center gap-2 px-4 py-1 rounded-full font-bold text-xs shadow border transition-colors duration-150"
+    [ngClass]="{
+      'bg-yellow-100 text-yellow-800 border-yellow-300': auction.status === 'En cours' ,
+      'bg-green-100 text-green-800 border-green-300': auction.status === 'Terminé',
+      'bg-red-100 text-red-700 border-red-300': auction.status !== 'En cours' && auction.status !== 'Terminé'
+    }"
+  >
+    <span
+      class="inline-block w-2 h-2 rounded-full"
+      [ngClass]="{
+        'bg-yellow-500': auction.status === 'En cours',
+        'bg-green-500': auction.status === 'Terminé',
+        'bg-red-400': auction.status !== 'En cours' && auction.status !== 'Terminé'
+      }"
+    ></span>
+    {{ auction.status }}
+  </span>
+</td>
+
+<td class="py-2 pl-2 text-left w-1/12">
+  <div class="flex justify-center">
+   <button
+  [routerLink]="['/dashboard/comments',auction.id]"
+  class="bg-card text-muted-foreground hover:bg-muted hover:text-foreground flex h-7 w-7 items-center justify-center rounded-md"
+>
+  <svg-icon 
+    src="assets/icons/heroicons/outline/arrow-sm-right.svg" 
+    [svgClass]="'h-5 w-5'">
+  </svg-icon>
+</button>
+  </div>
+</td>

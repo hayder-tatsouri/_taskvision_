@@ -1,0 +1,20 @@
+<div class="mb-6 flex items-center justify-between">
+  <!-- Titre + Fil d'ariane -->
+  <div>
+    <h3 class="text-lg font-bold text-foreground">Tâche </h3>
+    <div class="space-x-1 text-xs font-medium text-muted-foreground">
+      <a routerLink="/dashboard" class="hover:text-primary">Tableau de bord</a>
+    </div>
+  </div>
+
+  <!-- Boutons d'action -->
+  <div class="flex gap-3">
+    <button
+  class="rounded-md bg-green-600 px-4 py-2.5 text-xs font-semibold text-white shadow hover:bg-green-700 transition"
+  [routerLink]="['/dashboard/add-task']"
+>
+  + Ajouter Tâche
+</button>
+
+  </div>
+</div>
