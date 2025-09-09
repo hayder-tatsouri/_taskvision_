@@ -23,9 +23,13 @@ export class ProjectServiceService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(`http://localhost:3000/project/createProject`,project, { headers });
-
-
   }
+  getProject(id:number) {
+     const token = localStorage.getItem('token');
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Project>(`http://localhost:3000/project/${id}`, { headers });
+  }
+
   
 
 }

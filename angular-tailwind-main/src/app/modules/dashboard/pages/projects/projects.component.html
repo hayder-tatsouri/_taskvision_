@@ -6,10 +6,10 @@
     <div class="mb-10 border-b pb-6">
       <h1 class="text-4xl font-extrabold text-gray-900 flex items-center gap-3">
         
-        {{ project.title }}
+        {{ project?.title }}
       </h1>
       <p class="text-gray-600 mt-3 text-lg leading-relaxed">
-        {{ project.description }}
+        {{ project?.description }}
       </p>
     </div>
 
@@ -27,8 +27,15 @@
           </svg>
           Dates
         </span>
-        <p><span class="text-sm text-gray-500">Start:</span> {{ project.startDate }}</p>
-        <p><span class="text-sm text-gray-500">End:</span> {{ project.endDate }}</p>
+        <p>
+          <span class="text-sm text-gray-500">Debut:</span>
+          {{ project?.startDate | date:'longDate' }}
+        </p>
+        <p>
+          <span class="text-sm text-gray-500">Fin:</span>
+          {{ project?.endDate | date:'longDate' }}
+        </p>
+
       </div>
 
       <!-- Status -->
@@ -45,12 +52,12 @@
         <span
           class="px-5 py-2 inline-flex items-center rounded-full text-sm font-medium shadow-md"
           [ngClass]="{
-            'bg-green-100 text-green-700': project.status === 'Terminé',
-            'bg-yellow-100 text-yellow-700': project.status === 'En cours',
-            'bg-red-100 text-red-700': project.status === 'En attente'
+            'bg-green-100 text-green-700': project?.status === 'Terminé',
+            'bg-yellow-100 text-yellow-700': project?.status === 'En cours',
+            'bg-red-100 text-red-700': project?.status === 'En attente'
           }"
         >
-          {{ project.status }}
+          {{ project?.status }}
         </span>
       </div>
 
@@ -65,7 +72,7 @@
           </svg>
           Client
         </span>
-        <p class="text-gray-500 text-base">{{ project.clientName }}</p>
+        <p class="text-gray-500 text-base">{{ project?.clientId }}</p>
       </div>
 
       <!-- Project Manager -->
@@ -79,7 +86,7 @@
           </svg>
           Project Manager
         </span>
-        <p class="text-gray-500 text-base">{{ project.projectManager }}</p>
+        <p class="text-gray-500 text-base">{{ project?.managerId }}</p>
       </div>
     </div>
 

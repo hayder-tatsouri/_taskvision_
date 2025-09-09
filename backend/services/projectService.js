@@ -9,11 +9,14 @@ const viewAllProjects = async () => {
   return await projet.findAll();
 };
 
-
+const getProject = async (id) => {
+  return await projet.findByPk(id);
+};
 
 
 
 module.exports = {
   createProject,
-  viewAllProjects
+  viewAllProjects,
+  getProject
 };

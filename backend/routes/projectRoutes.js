@@ -72,6 +72,30 @@ router.post('/createProject', authMiddleware.verifyToken, authorizeRoles.authori
 
 router.get('/projects', authMiddleware.verifyToken, authorizeRoles.authorizeRoles(ROLES.ADMIN), projectController.viewAllProjects);
 
-
+/**
+ * @swagger
+ * /project/{id}:
+ *   get:
+ *     summary: Récupérer un projet par ID
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Project]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID du projet
+ *     responses:
+ *       200:
+ *         description: Projet trouvé
+ *       404:
+ *         description: Projet non trouvé
+ *       403:
+ *         description: Accès refusé - réservé aux administrateurs
+ */
+router.get('/:id',authMiddleware.verifyToken,projectController.getProject
+);
 
 module.exports = router;
