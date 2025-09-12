@@ -17,8 +17,8 @@
         <tr>
             <td class="px-6 py-4 font-medium text-gray-900">{{project.title}}</td>
             <td class="px-6 py-4 text-gray-600">{{project.description}}</td>
-            <td class="px-6 py-4 text-gray-600">{{project.clientId}}</td>
-            <td class="px-6 py-4 text-gray-600">{{project.managerId}}</td>
+            <td class="px-6 py-4 text-gray-600">{{project.client?.firstName}} {{project.client?.lastName}}</td>
+            <td class="px-6 py-4 text-gray-600">{{project.manager?.firstName}} {{project.manager?.lastName}}</td>
             <td class="px-6 py-4">
             <span
   class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"

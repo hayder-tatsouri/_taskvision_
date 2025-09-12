@@ -37,7 +37,7 @@ const getCommentsForTask = async (taskId) => {
           {
             model: user,
             as: 'user',
-            attributes: ['id', 'firstName', 'lastName', 'email']
+            attributes: ['id', 'firstName', 'lastName', 'role']
           }
         ]
       }

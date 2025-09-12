@@ -72,7 +72,7 @@
           </svg>
           Client
         </span>
-        <p class="text-gray-500 text-base">{{ project?.clientId }}</p>
+        <p class="text-gray-500 text-base">{{ project?.client?.firstName }} {{ project?.client?.lastName }}</p>
       </div>
 
       <!-- Project Manager -->
@@ -86,7 +86,7 @@
           </svg>
           Project Manager
         </span>
-        <p class="text-gray-500 text-base">{{ project?.managerId }}</p>
+        <p class="text-gray-500 text-base">{{ project?.manager?.firstName }} {{ project?.manager?.lastName }}</p>
       </div>
     </div>
 
