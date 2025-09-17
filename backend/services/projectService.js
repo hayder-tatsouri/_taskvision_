@@ -13,14 +13,23 @@ const viewAllProjects = async () => {
   });
 };
 
-const getProject = async (id) => {
-  return await projet.findByPk(id, {
+const getProject = async (id, userId) => {
+  const project = await projet.findByPk(id, {
     include: [
       { model: user, as: "client", attributes: ["id", "firstName", "lastName"] },
       { model: user, as: "manager", attributes: ["id", "firstName", "lastName"] }
     ]
   });
+
+  if (!project) return null;
+
+  if (project.clientId !== userId && project.managerId !== userId) {
+    throw new Error("Unauthorized access");
+  }
+
+  return project;
 };
+
 
 module.exports = {
   createProject,

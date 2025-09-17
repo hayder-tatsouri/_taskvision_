@@ -1,5 +1,13 @@
 <!-- project-detail.component.html -->
 <div class="p-6">
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-gray-500">Chargement...</div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="p-4 bg-red-100 text-red-600 rounded">
+    {{ errorMessage }}
+  </div>
+<div *ngIf="!loading && project" class="p-6">
   <div class="bg-white shadow-2xl rounded-2xl p-12 max-w-5xl mx-auto border border-gray-100">
     
     <!-- Header -->

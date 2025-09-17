@@ -46,7 +46,7 @@ const changeTaskStatus = async (req, res) => {
 async function getTasksByProject(req, res) {
   try {
     const { projectId } = req.params; // récupère l’id du projet depuis l’URL
-    const tasks = await taskService.getTasksByProjectId(projectId);
+    const tasks = await taskService.getTasksByProjectId(projectId,req.user.id);
 
     if (!tasks || tasks.length === 0) {
       return res.status(404).json({ message: 'No tasks found for this project' });

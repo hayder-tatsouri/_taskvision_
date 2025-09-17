@@ -32,7 +32,9 @@ const viewAllProjects = async (req, res) => {
 const getProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const projet = await projectService.getProject(id);
+    const userId = req.user.id; // 👈 comes from verifyToken middleware
+
+    const projet = await projectService.getProject(id, userId);
 
     if (!projet) {
       return res.status(404).json({ message: "Projet non trouvé" });
@@ -40,9 +42,14 @@ const getProject = async (req, res) => {
 
     res.status(200).json(projet);
   } catch (error) {
+    if (error.message === "Unauthorized access") {
+      return res.status(403).json({ message: "Accès refusé à ce projet" });
+    }
     res.status(500).json({ message: "Erreur lors de la récupération du projet", error: error.message });
   }
-};module.exports = {
+};
+
+module.exports = {
   createProject,
   viewAllProjects,
   getProject

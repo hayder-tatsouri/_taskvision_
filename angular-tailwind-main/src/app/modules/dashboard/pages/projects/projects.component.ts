@@ -29,14 +29,22 @@ export class ProjectsComponent implements OnInit {
         })
       )
       .subscribe({
-        next: (data) => {
-          this.project = data;
-          this.loading = false;
-        },
-        error: (err) => {
-          this.errorMessage = 'Erreur lors de la récupération du projet';
-          this.loading = false;
+      next: (data) => {
+        this.project = data;
+        this.errorMessage = ''; // reset
+        this.loading = false;
+      },
+      error: (err) => {
+        if (err.status === 403) {
+          this.errorMessage = " Vous n'avez pas accès à ce projet.";
+        } else if (err.status === 404) {
+          this.errorMessage = " Projet introuvable.";
+        } else {
+          this.errorMessage = " Erreur serveur, veuillez réessayer plus tard.";
         }
-      });
+        this.loading = false;
+      }
+    });
+
   }
 }

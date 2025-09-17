@@ -1,4 +1,4 @@
-const { task  } = require("../models");
+const { task,projet,user  } = require("../models");
 
 const createTask = async (taskData) => {
   return await task.create(taskData);
@@ -18,14 +18,34 @@ const changeTaskStatus = async (taskId, status) => {
   return taskToUpdate;
 };
 
-async function getTasksByProjectId(projectId) {
+async function getTasksByProjectId(projectId, userId) {
   try {
-    
-    return await task.findAll({
-      where: { projectId: projectId }
+    // Vérifier si le projet existe et si l'utilisateur est autorisé
+    const project = await projet.findByPk(projectId, {
+      include: [
+        { model: user, as: "client", attributes: ["id", "firstName", "lastName"] },
+        { model: user, as: "manager", attributes: ["id", "firstName", "lastName"] }
+      ]
     });
+
+    if (!project) {
+      throw { status: 404, message: "Projet introuvable" };
+    }
+
+    // Vérifier que l'utilisateur est soit le client, soit le manager
+    if (project.clientId !== userId && project.managerId !== userId) {
+      throw { status: 403, message: "Accès interdit à ce projet" };
+    }
+
+    // Récupérer les tâches associées
+    return await task.findAll({
+      where: { projectId },
+      
+    });
+
   } catch (err) {
-    throw new Error('Error fetching tasks for project: ' + err.message);
+    if (err.status) throw err; // Erreur volontaire (403 ou 404)
+    throw { status: 500, message: "Erreur lors de la récupération des tâches : " + err.message };
   }
 }
 
