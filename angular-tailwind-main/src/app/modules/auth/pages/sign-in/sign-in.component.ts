@@ -52,6 +52,7 @@ export class SignInComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: (res:any) => {
         localStorage.setItem('token', res.token);
+        localStorage.setItem('user', JSON.stringify(res.user));
         this.message = res.message;
         this.isError = false;
 
