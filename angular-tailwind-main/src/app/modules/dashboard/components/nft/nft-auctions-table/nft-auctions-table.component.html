@@ -16,7 +16,7 @@
           *ngFor="let task of tasks"
           [auction]="task"
           nft-auctions-table-item
-          class="border-b border-dashed border-border hover:bg-card">
+          (statusChange)="updateTaskStatus($event)">
         </tr>
       </tbody>
     </table>
@@ -32,4 +32,3 @@
     <p class="text-gray-400 text-sm mt-1">Ajoutez des tâches pour commencer à suivre l’avancement.</p>
   </div>
 </ng-template>
-

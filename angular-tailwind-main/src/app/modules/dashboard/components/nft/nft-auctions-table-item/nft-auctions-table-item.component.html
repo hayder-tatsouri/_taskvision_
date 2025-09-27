@@ -26,37 +26,31 @@
   </span>
 </td>
 
+<!-- Editable Status Dropdown -->
 <td class="py-2 pl-2 text-left w-2/12">
-  <span
-    class="inline-flex items-center gap-2 px-4 py-1 rounded-full font-bold text-xs shadow border transition-colors duration-150"
+  <select
+    [(ngModel)]="auction.status"
+    (change)="onStatusChange()"
+    class="inline-flex items-center gap-2 px-4 py-1 rounded-full font-bold text-xs shadow border transition-colors duration-150 w-full"
     [ngClass]="{
-      'bg-yellow-100 text-yellow-800 border-yellow-300': auction.status === 'En cours' ,
+      'bg-yellow-100 text-yellow-800 border-yellow-300': auction.status === 'En cours',
       'bg-green-100 text-green-800 border-green-300': auction.status === 'Terminé',
       'bg-red-100 text-red-700 border-red-300': auction.status !== 'En cours' && auction.status !== 'Terminé'
     }"
   >
-    <span
-      class="inline-block w-2 h-2 rounded-full"
-      [ngClass]="{
-        'bg-yellow-500': auction.status === 'En cours',
-        'bg-green-500': auction.status === 'Terminé',
-        'bg-red-400': auction.status !== 'En cours' && auction.status !== 'Terminé'
-      }"
-    ></span>
-    {{ auction.status }}
-  </span>
+    <option value="En cours">En cours</option>
+    <option value="Terminé">Terminé</option>
+    <option value="En attente">En attente</option>
+  </select>
 </td>
 
 <td class="py-2 pl-2 text-left w-1/12">
   <div class="flex justify-center">
-   <button
-  [routerLink]="['/dashboard/comments',auction.id]"
-  class="bg-card text-muted-foreground hover:bg-muted hover:text-foreground flex h-7 w-7 items-center justify-center rounded-md"
->
-  <svg-icon 
-    src="assets/icons/heroicons/outline/arrow-sm-right.svg" 
-    [svgClass]="'h-5 w-5'">
-  </svg-icon>
-</button>
+    <button
+      [routerLink]="['/dashboard/comments', auction.id]"
+      class="bg-card text-muted-foreground hover:bg-muted hover:text-foreground flex h-7 w-7 items-center justify-center rounded-md"
+    >
+      <svg-icon src="assets/icons/heroicons/outline/arrow-sm-right.svg" [svgClass]="'h-5 w-5'"></svg-icon>
+    </button>
   </div>
 </td>
