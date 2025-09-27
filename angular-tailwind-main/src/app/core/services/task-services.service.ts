@@ -24,9 +24,10 @@ export class TaskServicesService {
   }
 
   // ✅ New method to update a task
-  updateTask(taskId: number, data: Partial<Task>): Observable<Task> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<Task>(`${this.apiUrl}/update/${taskId}`, data, { headers });
-  }
+  updateTaskStatus(taskId: number, status: string): Observable<Task> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.put<Task>(`${this.apiUrl}/changeTaskStatus/${taskId}`, { status }, { headers });
+}
+
 }

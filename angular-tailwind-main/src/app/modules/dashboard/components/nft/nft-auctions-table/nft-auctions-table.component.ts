@@ -33,11 +33,18 @@ export class NftAuctionsTableComponent implements OnInit {
     });
   }
 
-  updateTaskStatus(task: Task) {
-    // Call backend to update status
-    this.taskService.updateTask(task.id, { status: task.status }).subscribe({
-      next: () => console.log(`Task ${task.id} updated to ${task.status}`),
-      error: (err) => console.error(err),
+   updateTaskStatus(task: Task) {
+    this.taskService.updateTaskStatus(task.id, task.status).subscribe({
+      next: (updatedTask) => {
+        console.log(`✅ Task ${updatedTask.id} updated to ${updatedTask.status}`);
+        // mets à jour localement la liste des tasks pour refléter le changement
+        const index = this.tasks.findIndex(t => t.id === updatedTask.id);
+        if (index !== -1) {
+          this.tasks[index] = updatedTask;
+        }
+      },
+      error: (err) => console.error('❌ Failed to update task status:', err),
     });
   }
 }
+

@@ -29,20 +29,21 @@
 <!-- Editable Status Dropdown -->
 <td class="py-2 pl-2 text-left w-2/12">
   <select
-    [(ngModel)]="auction.status"
-    (change)="onStatusChange()"
-    class="inline-flex items-center gap-2 px-4 py-1 rounded-full font-bold text-xs shadow border transition-colors duration-150 w-full"
-    [ngClass]="{
-      'bg-yellow-100 text-yellow-800 border-yellow-300': auction.status === 'En cours',
-      'bg-green-100 text-green-800 border-green-300': auction.status === 'Terminé',
-      'bg-red-100 text-red-700 border-red-300': auction.status !== 'En cours' && auction.status !== 'Terminé'
-    }"
-  >
-    <option value="En cours">En cours</option>
-    <option value="Terminé">Terminé</option>
-    <option value="En attente">En attente</option>
-  </select>
-</td>
+  [(ngModel)]="auction.status"
+  (ngModelChange)="onStatusChange()"
+  class="inline-flex items-center gap-2 px-4 py-1 rounded-full font-bold text-xs shadow border w-full"
+  [ngClass]="{
+    'bg-yellow-100 text-yellow-800 border-yellow-300': auction.status === 'En cours',
+    'bg-green-100 text-green-800 border-green-300': auction.status === 'Terminé',
+    'bg-red-100 text-red-700 border-red-300': auction.status === 'En attente'
+  }"
+>
+  <option value="En cours">En cours</option>
+  <option value="Terminé">Terminé</option>
+  <option value="En attente">En attente</option>
+</select>
+
+
 
 <td class="py-2 pl-2 text-left w-1/12">
   <div class="flex justify-center">
