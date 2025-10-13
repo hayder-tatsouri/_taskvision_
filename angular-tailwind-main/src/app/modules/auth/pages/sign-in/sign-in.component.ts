@@ -52,11 +52,12 @@ export class SignInComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: (res:any) => {
         localStorage.setItem('token', res.token);
+        localStorage.setItem('refreshToken', res.refreshToken);
         localStorage.setItem('user', JSON.stringify(res.user));
         this.message = res.message;
         this.isError = false;
 
-        console.log('Token:', res.token,res.user);
+        console.log('Token:', res.token, 'refresh Token',res.refreshToken, res.user);
         this._router.navigate(['/dashboard/projects']);
       },
       error: (err) => {

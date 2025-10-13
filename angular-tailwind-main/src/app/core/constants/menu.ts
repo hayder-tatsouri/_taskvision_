@@ -10,6 +10,7 @@ export class Menu {
           icon: 'assets/icons/heroicons/outline/view-grid.svg',
           label: 'tableau de bord',
           route: '/dashboard/projects',
+          roles: ['admin', 'client', 'projectManager'],
           
         },
         
@@ -79,11 +80,13 @@ export class Menu {
           icon: 'assets/icons/heroicons/outline/users.svg',
           label: 'utilisateurs',
           route: '/dashboard/components/users',
+          roles: ['admin'],
         },
         {
           icon: 'assets/icons/heroicons/outline/cube.svg',
           label: 'tous les projets',
           route: '/dashboard/components/allProjects',
+          roles: ['admin'],
         },
         /*{
           icon: 'assets/icons/heroicons/outline/bell.svg',

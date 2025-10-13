@@ -17,6 +17,9 @@ export class UserServicesService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.htttp.post(this.apiUrl+'/createAccount', user, { headers });
-  
-
-}}
+}
+  deleteUser(userId: number) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.htttp.delete(`${this.apiUrl}/deleteUser/${userId}`, { headers });
+  }};

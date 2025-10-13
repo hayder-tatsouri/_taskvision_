@@ -32,7 +32,7 @@ const viewAllProjects = async (req, res) => {
 const getProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const userId = req.user.id; // 👈 comes from verifyToken middleware
+    const userId = req.user.id; 
 
     const projet = await projectService.getProject(id, userId);
 

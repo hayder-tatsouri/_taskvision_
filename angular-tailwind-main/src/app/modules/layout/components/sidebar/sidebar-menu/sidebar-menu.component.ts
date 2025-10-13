@@ -23,11 +23,19 @@ import { SidebarSubmenuComponent } from '../sidebar-submenu/sidebar-submenu.comp
   ],
 })
 export class SidebarMenuComponent implements OnInit {
+  public userRole: string = '';
+
   constructor(public menuService: MenuService) {}
+
+  ngOnInit(): void {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.userRole = JSON.parse(user).role; // "admin" ou "user"
+    }
+  }
 
   public toggleMenu(subMenu: SubMenuItem) {
     this.menuService.toggleMenu(subMenu);
   }
-
-  ngOnInit(): void {}
 }
+

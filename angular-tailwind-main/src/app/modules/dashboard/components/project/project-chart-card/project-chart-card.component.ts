@@ -55,33 +55,41 @@ export class ProjectChartCardComponent implements OnInit, OnDestroy {
       const baseColor = '#4F46E5'; // default color
 
       this.chartOptions = {
-        series: [{ name: 'Projects', data }],
-        chart: {
-          fontFamily: 'inherit',
-          type: 'line',   // ✅ smooth line
-          height: 250,
-          toolbar: { show: false },
-        },
-        dataLabels: { enabled: false },
-        stroke: {
-          curve: 'smooth',
-          width: 3,
-          colors: [baseColor],
-        },
-        xaxis: {
-          categories,
-          labels: { show: true },
-          crosshairs: {
-            position: 'front',
-            stroke: { color: baseColor, width: 1, dashArray: 4 },
-          },
-        },
-        tooltip: {
-          theme: 'light',
-          y: { formatter: (val) => val.toString() },
-        },
-        colors: [baseColor],
-      };
+  series: [{ name: 'Projects', data }],
+  chart: {
+    fontFamily: 'inherit',
+    type: 'line',
+    height: 250,
+    toolbar: { show: false },
+  },
+  dataLabels: { enabled: false },
+  stroke: {
+    curve: 'smooth',
+    width: 3,
+    colors: [baseColor],
+  },
+  xaxis: {
+    categories,
+    labels: { show: true },
+    crosshairs: {
+      position: 'front',
+      stroke: { color: baseColor, width: 1, dashArray: 4 },
+    },
+  },
+  yaxis: {
+    min: 0,
+    forceNiceScale: false,   // empêche ApexCharts de recalculer les ticks
+    tickAmount: Math.max(...data),  // le nombre de ticks = max de tes données
+    labels: {
+      formatter: (val) => Math.round(val).toString() // pour afficher que des entiers
+    }
+  },
+  tooltip: {
+    theme: 'light',
+    y: { formatter: (val) => val.toString() },
+  },
+  colors: [baseColor],
+};
 
       // theme reactive
       effect(() => {

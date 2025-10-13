@@ -29,6 +29,8 @@ import { RouterLink } from '@angular/router';
 export class TableComponent implements OnInit {
   users = signal<User[]>([]);
 
+  public userCount = computed(() => this.users().length);
+
   constructor(private http: HttpClient, private filterService: TableFilterService) {
     const token = localStorage.getItem('token');
     
@@ -44,6 +46,7 @@ export class TableComponent implements OnInit {
         console.error('Error fetching users:', error);
       },
     });
+
   }
 
   public toggleUsers(checked: boolean) {
@@ -105,4 +108,9 @@ export class TableComponent implements OnInit {
   });
 
   ngOnInit() {}
+
+  // called when a child row emits deletion
+  public onUserDeleted(deletedId: number) {
+    this.users.update(users => users.filter(u => u.id !== deletedId));
+  }
 }

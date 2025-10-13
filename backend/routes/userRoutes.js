@@ -94,7 +94,43 @@ router.get('/:id/users', authMiddleware.verifyToken, userController.getUsersOfPr
  */
 router.get('/getUserProjects', authMiddleware.verifyToken, userController.getUserProjects);
 
+/**
+ * @swagger
+ * /user/{id}:
+ *   delete:
+ *     summary: Supprimer un utilisateur par ID
+ *     description: Supprime définitivement un utilisateur du système. Nécessite un token d'authentification valide.
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []   # Active l'auth via JWT
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID de l'utilisateur à supprimer
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 12
+ *     responses:
+ *       200:
+ *         description: Utilisateur supprimé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Utilisateur supprimé avec succès
+ *       401:
+ *         description: Token manquant ou invalide
+ *       404:
+ *         description: Utilisateur non trouvé
+ *       500:
+ *         description: Erreur interne du serveur
+ */
 
+router.delete('/deleteUser/:id', authMiddleware.verifyToken, authorizeRoles.authorizeRoles(ROLES.ADMIN), userController.deleteUser);
 
 
 

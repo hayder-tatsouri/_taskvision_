@@ -1,12 +1,13 @@
 <div *ngFor="let menu of menuService.pagesMenu">
   <div *ngIf="menuService.showSideBar" class="mx-1 flex items-center justify-between py-3">
     <small [ngClass]="{ hidden: !menuService.showSideBar }" class="text-muted-foreground/50 text-xs font-semibold">
-      {{ menu.group }}
+     
     </small>
   </div>
   <ul class="flex flex-col">
     <!-- List items -->
-    <li *ngFor="let item of menu.items">
+     <ng-container *ngFor="let item of menu.items">
+    <li  *ngIf="!item.roles || item.roles.includes(userRole)">
       <!-- Menu List -->
       <div
         (click)="toggleMenu(item)"
@@ -15,11 +16,11 @@
           'hover:bg-card/50': !menuService.showSideBar
         }"
         class="text-muted-foreground hover:text-foreground group relative flex grow items-center gap-4 rounded-lg px-2">
+        
         <!-- Icon -->
         <div [ngClass]="item.active && !menuService.showSideBar ? 'text-primary' : 'text-muted-foreground/50'">
           <svg-icon src="{{ item.icon }}" [svgClass]="'h-5 w-5'"> </svg-icon>
         </div>
-        
 
         <!-- Condition -->
         <ng-container
@@ -29,15 +30,15 @@
 
         <!-- Workaround:: Enable routerLink -->
         <ng-template #parentMenu let-item="item">
-  <a
-    [routerLink]="item.route"
-    routerLinkActive="text-primary"
-    class="text-muted-foreground hover:text-primary flex h-[36px] cursor-pointer items-center justify-start rounded-sm truncate text-xs font-semibold tracking-wide focus:outline-hidden"
-    [ngClass]="{ hidden: !menuService.showSideBar }"
-  >
-    {{ item.label }}
-  </a>
-</ng-template>
+          <a
+            [routerLink]="item.route"
+            routerLinkActive="text-primary"
+            class="text-muted-foreground hover:text-primary flex h-[36px] cursor-pointer items-center justify-start rounded-sm truncate text-xs font-semibold tracking-wide focus:outline-hidden"
+            [ngClass]="{ hidden: !menuService.showSideBar }"
+          >
+            {{ item.label }}
+          </a>
+        </ng-template>
 
         <!-- Workaround:: Disable routerLink -->
         <ng-template #childMenu let-item="item">
@@ -74,6 +75,7 @@
       <!-- Submenu items -->
       <app-sidebar-submenu [submenu]="item"></app-sidebar-submenu>
     </li>
+    </ng-container>
   </ul>
 
   <div class="py-3" *ngIf="menu.separator">

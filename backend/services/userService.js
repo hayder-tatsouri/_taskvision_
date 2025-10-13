@@ -9,7 +9,7 @@ const getAllUsers = async () => {
 
 const createAccount = async ({ lastName, firstName, email, password, role }) => {
   // Vérifier que le rôle est valide
-  const allowedRoles = ["Admin", "Project Manager", "Client"];
+  const allowedRoles = ["Admin", "Project Manager", "Client","admin","project manager","client"];
   if (!allowedRoles.includes(role)) {
     throw new Error(`Le rôle doit être l'un des suivants : ${allowedRoles.join(", ")}`);
   }
@@ -72,11 +72,21 @@ const getUserProjects = async (userId) => {
 
   return projects;
 };
+const deleteUser = async (id) => {
+  const foundUser = await user.findByPk(id);
+  if (!foundUser) {
+    throw new Error('Utilisateur non trouvé');
+  }
+
+  await foundUser.destroy();
+  return { message: 'Utilisateur supprimé avec succès' };
+};
 
 
 module.exports = {
   getAllUsers,
   createAccount,
   getUsersOfProject,
-  getUserProjects
+  getUserProjects,
+  deleteUser
 };

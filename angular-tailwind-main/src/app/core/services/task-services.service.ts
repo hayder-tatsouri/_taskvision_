@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Task } from 'src/app/modules/dashboard/models/task';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,20 @@ export class TaskServicesService {
     return this.http.post<Task>(`${this.apiUrl}/addTask`, task, { headers });
   }
 
+  // broadcast lorsque des tâches changent (envoie projectId si disponible)
+  public tasksChanged = new Subject<number | undefined>();
+
   // ✅ New method to update a task
   updateTaskStatus(taskId: number, status: string): Observable<Task> {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  return this.http.put<Task>(`${this.apiUrl}/changeTaskStatus/${taskId}`, { status }, { headers });
-}
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<Task>(`${this.apiUrl}/changeTaskStatus/${taskId}`, { status }, { headers }).pipe(
+      tap((updatedTask: Task) => {
+        // try to broadcast project id if backend returns it
+        const projectId = (updatedTask as any)?.projectId;
+        this.tasksChanged.next(projectId);
+      })
+    );
+  }
 
 }

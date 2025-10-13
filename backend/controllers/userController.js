@@ -48,6 +48,16 @@ const getUserProjects = async (req, res) => {
     res.status(500).json({ error: "Erreur serveur" });
   }
 };
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await userService.deleteUser(id);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 
 
 
@@ -56,6 +66,7 @@ module.exports = {
    getUsersOfProject,
    getUserProjects,
    getAllUsers,
-   createAccount
+   createAccount,
+    deleteUser
    };
 

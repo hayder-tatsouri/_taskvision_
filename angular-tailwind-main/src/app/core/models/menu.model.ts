@@ -14,4 +14,5 @@ export interface SubMenuItem {
   expanded?: boolean;
   active?: boolean;
   children?: Array<SubMenuItem>;
+  roles?: Array<string>; // roles allowed to see this menu item
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import * as Highcharts from 'highcharts';
 import { TaskServicesService } from 'src/app/core/services/task-services.service';
 import { Task } from 'src/app/modules/dashboard/models/task';
@@ -18,11 +19,13 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule]
 })
-export class HighchartComponent implements OnInit {
+export class HighchartComponent implements OnInit, OnDestroy {
   private chart?: Highcharts.Chart;
   private projectId!: number;
   private tasks: Task[] = [];
   hasData = false;
+
+  private subs = new Subscription();
 
   constructor(
     private taskService: TaskServicesService,
@@ -37,6 +40,24 @@ export class HighchartComponent implements OnInit {
         this.loadData(projectId); // 👉 initialise la liste locale
       }
     });
+
+    // recharger le chart quand une tâche a été modifiée
+    this.subs.add(
+      this.taskService.tasksChanged.subscribe((changedProjectId) => {
+        // si changedProjectId undefined -> reload all; sinon reload only if matching project
+        if (changedProjectId == null || changedProjectId === this.projectId) {
+          this.loadData(this.projectId);
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+    if (this.chart) {
+      try { this.chart.destroy(); } catch {}
+      this.chart = undefined;
+    }
   }
 
   loadData(projectId: number) {
