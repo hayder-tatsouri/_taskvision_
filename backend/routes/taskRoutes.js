@@ -84,7 +84,7 @@ router.post('/addTask', authMiddleware.verifyToken,authorizeRoles.authorizeRoles
  *       401:
  *         description: Non autorisé
  */
-router.put('/changeTaskStatus/:id', authMiddleware.verifyToken, taskController.changeTaskStatus);
+router.put('/changeTaskStatus/:id', authMiddleware.verifyToken,authorizeRoles.authorizeRoles(ROLES.ADMIN,ROLES.PROJECT_MANAGER),taskController.changeTaskStatus);
 /**
  * @swagger
  * /task/project/{projectId}/tasks:
