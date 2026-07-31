@@ -1,0 +1,54 @@
+name: taskvision
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: taskvision-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: Hayder1920
+      MYSQL_DATABASE: taskvision
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pHayder1920"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: taskvision-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: Hayder1920
+      DB_NAME: taskvision
+      DB_DIALECT: mysql
+      PORT: 3000
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build:
+      context: ./angular-tailwind-main
+      dockerfile: Dockerfile
+    container_name: taskvision-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "4200:4200"
+
+volumes:
+  mysql_data:

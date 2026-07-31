@@ -77,6 +77,50 @@ Connecte-toi avec l’utilisateur admin créé par le seeder.
 
 Crée un projet, ajoute des tâches et des commentaires pour tester toutes les fonctionnalités.
 
+---
+
+## Démarrage avec Docker (première utilisation)
+
+Cette configuration lance 3 services ensemble:
+- Frontend Angular sur http://localhost:4200
+- Backend Express sur http://localhost:3000
+- Base MySQL sur localhost:3307
+
+### 1. Prérequis
+- Installer Docker Desktop
+- Vérifier que Docker est démarré
+
+### 2. Lancer toute l’application
+Depuis la racine du projet (_taskVision_):
+
+Copier d'abord le template d'environnement backend:
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Puis lancer:
+
+```bash
+docker compose up --build
+```
+
+### 3. Arrêter les services
+
+```bash
+docker compose down
+```
+
+### 4. Réinitialiser totalement la base (optionnel)
+
+```bash
+docker compose down -v
+```
+
+Remarque:
+- Le backend lit le fichier `backend/.env`.
+- Dans Docker, la variable `DB_HOST` est forcée à `db` via `docker-compose.yml`.
+
     
 
   

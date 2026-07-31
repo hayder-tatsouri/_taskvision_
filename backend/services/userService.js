@@ -81,12 +81,23 @@ const deleteUser = async (id) => {
   await foundUser.destroy();
   return { message: 'Utilisateur supprimé avec succès' };
 };
+const getUserById = async (id) => {
+  const foundUser = await user.findByPk(id, {
+    attributes: { exclude: ['password'] } // Exclure le mot de passe
+  });
 
+  if (!foundUser) {
+    throw new Error('Utilisateur non trouvé');
+  }
+
+  return foundUser;
+};
 
 module.exports = {
   getAllUsers,
   createAccount,
   getUsersOfProject,
   getUserProjects,
-  deleteUser
+  deleteUser,
+  getUserById
 };

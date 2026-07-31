@@ -132,7 +132,112 @@ router.get('/getUserProjects', authMiddleware.verifyToken, userController.getUse
 
 router.delete('/deleteUser/:id', authMiddleware.verifyToken, authorizeRoles.authorizeRoles(ROLES.ADMIN), userController.deleteUser);
 
+/**
+ * @swagger
+ * /user/getUser/{id}:
+ *   get:
+ *     summary: Get a user by ID
+ *     description: Retrieves a specific user's information by their ID. Requires authentication and admin role.
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: The ID of the user to retrieve
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     responses:
+ *       200:
+ *         description: User information retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 firstName:
+ *                   type: string
+ *                   example: John
+ *                 lastName:
+ *                   type: string
+ *                   example: Doe
+ *                 email:
+ *                   type: string
+ *                   example: john.doe@example.com
+ *                 role:
+ *                   type: string
+ *                   example: admin
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
+ *       403:
+ *         description: Forbidden - Admin role required
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/getUser/:id', authMiddleware.verifyToken, authorizeRoles.authorizeRoles(ROLES.ADMIN), userController.getUserById);
 
+/**
+ * @swagger
+ * /user/sendNotification:
+ *   post:
+ *     summary: Send a notification to a user
+ *     description: Sends an email notification to a specific user. Requires authentication and admin role.
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId
+ *               - subject
+ *               - message
+ *             properties:
+ *               userId:
+ *                 type: integer
+ *                 description: The ID of the user to send the notification to
+ *                 example: 1
+ *               subject:
+ *                 type: string
+ *                 description: The subject of the notification
+ *                 example: "Project Update"
+ *               message:
+ *                 type: string
+ *                 description: The content of the notification
+ *                 example: "Your project has been updated with new tasks"
+ *     responses:
+ *       200:
+ *         description: Notification sent successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Notification sent successfully"
+ *       400:
+ *         description: Missing required fields (userId, subject, message)
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
+ *       403:
+ *         description: Forbidden - Admin role required
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error - Failed to send notification
+ */
+router.post('/sendNotification', authMiddleware.verifyToken, authorizeRoles.authorizeRoles(ROLES.ADMIN), userController.sendNotification);
 
 
 

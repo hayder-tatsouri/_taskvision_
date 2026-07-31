@@ -78,10 +78,10 @@ export class ProjectChartCardComponent implements OnInit, OnDestroy {
   },
   yaxis: {
     min: 0,
-    forceNiceScale: false,   // empêche ApexCharts de recalculer les ticks
-    tickAmount: Math.max(...data),  // le nombre de ticks = max de tes données
+    forceNiceScale: false,   
+    tickAmount: Math.max(...data),  
     labels: {
-      formatter: (val) => Math.round(val).toString() // pour afficher que des entiers
+      formatter: (val) => Math.round(val).toString() 
     }
   },
   tooltip: {
